@@ -1,23 +1,28 @@
+// DO NOT CHANGE THIS FILE
 const sharedConfig = {
     client: 'sqlite3',
     useNullAsDefault: true,
     migrations: {
-        directory: './data/migrations'
+      directory: './data/migrations',
     },
-    seeds: { directory: './datta/seeds'},
-    pool: { afterCrete: (conn, done) => conn.run("PRAGMA foreign_keys = ON", done)
-},
-}
-
-module.exports = {
+    seeds: {
+      directory: './data/seeds',
+    },
+    // this enables foreign keys in SQLite
+    pool: {
+      afterCreate: (conn, done) => {
+        conn.run('PRAGMA foreign_keys = ON', done)
+      },
+    },
+  }
+  
+  module.exports = {
     development: {
-        ...sharedConfig,
-        connection: { filename: './data/cook_book.db3'},
-        
+      ...sharedConfig,
+      connection: { filename: './data/cook_book.db3' },
     },
     testing: {
-        ...sharedConfig,
-        connection: { filename: './data/cook_book.test.db3'}
+      ...sharedConfig,
+      connection: { filename:'./data/cook_book.db3' },
     },
-    production: {}
-}
+  }
