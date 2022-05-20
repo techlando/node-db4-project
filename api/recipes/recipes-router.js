@@ -1,8 +1,15 @@
 const router = require('express').Router()
 
-router.use('*', (req, res, next) => {
-    res.json({ api: 'up'})
+const Recipe = require('./recipes-model');
+
+router.get("/:recipe_id", (req, res, next) => {
+    Recipe.getRecipeById(req.params.id)
+        .then(result =>{
+            res.status(200).json(result)
+        })
 })
+
+
 
 
 
